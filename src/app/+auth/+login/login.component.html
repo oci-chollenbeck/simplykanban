@@ -1,0 +1,51 @@
+<div class="authentication-wrapper authentication-2 ui-bg-cover ui-bg-overlay-container px-4" style="background-image:
+  url('assets/img/21.jpg');">
+  <div class="ui-bg-overlay bg-dark opacity-25"></div>
+
+  <div class="authentication-inner py-5">
+
+    <div class="card">
+      <div class="p-4 px-sm-5 pt-sm-5">
+        <!-- Logo -->
+        <div class="d-flex justify-content-center align-items-center mb-4">
+          <div class="ui-w-60">
+            <div class="w-100 position-relative">
+              <span class="app-brand-logo demo bg-white ml-auto mr-auto">
+                <b class="text-linux text-large"><i class="fa fa-circle-notch"></i></b>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- / Logo -->
+
+       <h5 class="text-center text-muted font-weight-normal mb-4">Login to Your Account</h5>
+
+        <!-- Form -->
+        <form [formGroup]="fg" (ngSubmit)="login()">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input formControlName="email" name="email" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label class="form-label d-flex justify-content-between align-items-end">
+              <div>Password</div>
+              <a [routerLink]="['/identity', 'reset-password']" class="d-block small">Forgot password?</a>
+            </label>
+            <input formControlName="password" name="password" type="password" class="form-control">
+          </div>
+          <div class=" text-right m-0">
+            <button type="submit" class="btn btn-primary" [disabled]="fg.invalid || fg.pristine" >Sign In</button>
+          </div>
+        </form>
+        <!-- / Form -->
+
+      </div>
+      <div class="card-footer py-3 px-4 px-sm-5">
+        <div class="text-center text-muted">
+          Don't have an account yet? <a [routerLink]="['/', 'identity', 'register']">Sign Up</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
