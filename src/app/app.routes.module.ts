@@ -20,7 +20,7 @@ const routes: Routes = [
     component: Layout2Component,
     pathMatch: 'full',
     children: [
-      { path: '', loadChildren: () => import('./+home/module').then(m => m.HomeModule) },
+      { path: '', loadChildren: () => import('./+dashboard/dashboard.module').then(m => m.DashboardModule) },
     ]
   },
   {
@@ -37,20 +37,6 @@ const routes: Routes = [
       { path: '', loadChildren: () => import('./+account/account.module').then(m => m.AccountModule) },
     ]
   },
-    {
-    path: APP_ROUTE_NAMES.BOARD,
-    component: Layout2Component,
-    children: [
-      { path: '', loadChildren: () => import('./+board/board.module').then(m => m.BoardModule) },
-    ]
-  },
-  {
-    path: APP_ROUTE_NAMES.CARD,
-    component: Layout2Component,
-    children: [
-      { path: '', loadChildren: () => import('./+card/card.module').then(m => m.CardModule) },
-    ]
-  },
   {
     path: APP_ROUTE_NAMES.BOARD,
     component: Layout2Component,
@@ -65,7 +51,7 @@ const routes: Routes = [
       { path: '', loadChildren: () => import('./+card/card.module').then(m => m.CardModule) },
     ]
   },
-//{APP_ROUTE}
+  //{APP_ROUTE}
 
   // 404 Not Found page
   { path: '**', component: NotFoundComponent }

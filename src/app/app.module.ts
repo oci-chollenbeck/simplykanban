@@ -66,7 +66,7 @@ import { ToastrModule } from 'ngx-toastr';
     Title,
     AppService,
     { provide: DEFAULTS, useValue: {version: environment.version} },
-    { provide: SETTINGS, useValue: { minimumFetchIntervalMillis: 6000 } },
+    { provide: SETTINGS, useValue: { minimumFetchIntervalMillis: (1000 * 60 * 60) } },
 
   ],
 
