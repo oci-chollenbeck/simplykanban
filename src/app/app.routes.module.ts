@@ -51,6 +51,20 @@ const routes: Routes = [
       { path: '', loadChildren: () => import('./+card/card.module').then(m => m.CardModule) },
     ]
   },
+  {
+    path: APP_ROUTE_NAMES.BOARD,
+    component: Layout2Component,
+    children: [
+      { path: '', loadChildren: () => import('./+board/board.module').then(m => m.BoardModule) },
+    ]
+  },
+  {
+    path: APP_ROUTE_NAMES.CARD,
+    component: Layout2Component,
+    children: [
+      { path: '', loadChildren: () => import('./+card/card.module').then(m => m.CardModule) },
+    ]
+  },
 //{APP_ROUTE}
 
   // 404 Not Found page

@@ -1,18 +1,26 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@app/shared/shared.module';
-import { CardRoutingModule } from './routes/card.routes.module';
+import { Routes, RouterModule } from '@angular/router';
+
+import { CARD_ROUTE_NAMES } from './routes/card.routes.names';
 
 
-// **************************************************
-// Components & Services
+// *: Components
 //{COMPONENT_IMPORT}
+
+// *: Routes
+export const routes: Routes = [
+  //{COMPONENT_ROUTE}
+];
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    //{COMPONENT_DECLARATION}
+  ],
   imports: [
     SharedModule,
-     CardRoutingModule,
+    RouterModule.forChild(routes),
     //{MODULE_IMPORT}
   ],
   exports: [

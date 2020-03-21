@@ -4,4 +4,6 @@ export const APP_ROUTE_NAMES = {
   ACCOUNT: 'account',
   BOARD: 'board',
   CARD: 'card',
+  BOARD: 'board',
+  CARD: 'card',
 }
