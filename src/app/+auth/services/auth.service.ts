@@ -10,21 +10,21 @@ export class AuthService {
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
 
-  authStatus: Subject<boolean>;
+  authStatus: Subject<firebase.User>;
 
   constructor(private firebaseAuth: AngularFireAuth) {
-    this.authStatus = new Subject<boolean>();
+    this.authStatus = new Subject<firebase.User>();
     this.user = this.firebaseAuth.authState;
     this.user.subscribe(
       (user) => {
         if (user) {
           console.log('Auth Found');
           this.userDetails = user;
-          this.authStatus.next(true);
+          this.authStatus.next(user);
         }
         else {
           this.userDetails = null;
-          this.authStatus.next(false);
+          this.authStatus.next(null);
           console.log('No Auth');
         }
       }
@@ -45,6 +45,10 @@ export class AuthService {
 
   getCurrentUser() {
     return this.userDetails;
+  }
+
+  getCurrentUser$(){
+    return this.user;
   }
 
   /**

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppService } from '@app/app.service';
 import { LayoutService } from 'template/layout.service';
 import { AuthService } from '@app/+auth/services/auth.service';
@@ -8,7 +8,7 @@ import { AuthService } from '@app/+auth/services/auth.service';
   selector: 'app-index',
   templateUrl: './index.component.html'
 })
-export class IndexComponent implements OnDestroy {
+export class IndexComponent implements OnInit, OnDestroy {
 
   user: firebase.User;
   today: number;
@@ -16,8 +16,15 @@ export class IndexComponent implements OnDestroy {
   constructor(private appService: AppService, private layoutService: LayoutService, private authService: AuthService) {
     this.appService.pageTitle = 'Dashboard';
 
-    this.user = this.authService.getCurrentUser();
     this.today = Date.now();
+  }
+
+  ngOnInit(): void {
+    this.authService.getCurrentUser$().subscribe(
+      (user) => {
+        this.user = user;
+      }
+    );
   }
 
 
