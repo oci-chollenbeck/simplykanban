@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AppService } from '@app/app.service';
 import { LayoutService } from '../layout.service';
 import { APP_MENU } from '@app/app.menu';
+import { AuthService } from '@app/+auth/services/auth.service';
 
 @Component({
   selector: 'app-layout-sidenav',
@@ -18,13 +19,21 @@ export class LayoutSidenavComponent implements AfterViewInit {
 
   menu: any[];
 
-  constructor(private router: Router, private appService: AppService, private layoutService: LayoutService) {
+  constructor(private router: Router, private appService: AppService, private layoutService: LayoutService, private authService: AuthService) {
     // Set host classes
     this.hostClassVertical = this.orientation !== 'horizontal';
     this.hostClassHorizontal = !this.hostClassVertical;
     this.hostClassFlex = this.hostClassHorizontal;
 
-    this.menu = APP_MENU;
+    this.menu = [];
+
+    const user = this.authService.getCurrentUser();
+
+    APP_MENU.forEach(item => {
+      if (item.checkPermission(user)) {
+        this.menu.push(item);
+      }
+    });
   }
 
   ngAfterViewInit() {

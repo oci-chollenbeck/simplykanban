@@ -8,11 +8,12 @@ import { DASHBOARD_ROUTE_NAMES } from './routes/dashboard.routes.names';
 
 // *: Components
 import { IndexComponent } from './+index/index.component';
+import { PERMISSIONS } from '@app/+auth/models/permissions.const';
 //{COMPONENT_IMPORT}
 
 // *: Routes
 export const routes: Routes = [
-  { path: DASHBOARD_ROUTE_NAMES.INDEX, component: IndexComponent },
+  { path: DASHBOARD_ROUTE_NAMES.INDEX, component: IndexComponent, data: { checkPermissions: PERMISSIONS.authenticated } },
   //{COMPONENT_ROUTE}
 ];
 
