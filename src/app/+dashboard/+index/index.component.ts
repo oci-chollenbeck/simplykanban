@@ -2,6 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppService } from '@app/app.service';
 import { LayoutService } from 'template/layout.service';
 import { AuthService } from '@app/+auth/services/auth.service';
+import { BoardService } from '@app/+board/services/board.service';
+import { BoardVM } from '@app/+board/models/board.model';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { APP_ROUTE_NAMES } from '@app/app.routes.names';
 
 
 @Component({
@@ -13,7 +18,7 @@ export class IndexComponent implements OnInit, OnDestroy {
   user: firebase.User;
   today: number;
 
-  constructor(private appService: AppService, private layoutService: LayoutService, private authService: AuthService) {
+  constructor(private appService: AppService, private layoutService: LayoutService, private authService: AuthService, private boardService: BoardService, private toastr: ToastrService, private router: Router) {
     this.appService.pageTitle = 'Dashboard';
 
     this.today = Date.now();
@@ -23,6 +28,15 @@ export class IndexComponent implements OnInit, OnDestroy {
     this.authService.getCurrentUser$().subscribe(
       (user) => {
         this.user = user;
+      }
+    );
+  }
+
+  createBoard() {
+    this.boardService.add(new BoardVM()).then(
+      (newBoard) => {
+        this.toastr.info('Creating new board');
+        this.router.navigate(['/', APP_ROUTE_NAMES.BOARD, newBoard.id]);
       }
     );
   }

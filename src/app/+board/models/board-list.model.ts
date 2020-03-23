@@ -1,13 +1,5 @@
-export class BoardListVM {
+export interface IBoardList {
   id: string;
   name: string;
   position: number;
-
-  // Constructor
-  constructor(){
-    this.id = null;
-    this.name = null;
-    this.position = 0;
-  }
-
 }

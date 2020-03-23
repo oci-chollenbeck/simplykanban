@@ -1,18 +1,18 @@
 import { IBaseModelVM } from '@app/shared/models/base.model';
-import { BoardOptionsVM } from './board-options.model';
-import { BoardListVM } from './board-list.model';
-import { BoardMemberVM } from './board-member.model';
+import { IBoardOptions } from './board-options.model';
+import { IBoardList } from './board-list.model';
+import { IBoardMember } from './board-member.model';
 import { CardVM } from '@app/+card/models/card.model';
 
 // *: Create SCSS classes for background color & text color combos for each of the lables
 export class BoardVM extends IBaseModelVM {
 
   name: string;
-  options: BoardOptionsVM;
+  options: IBoardOptions;
   description: string;
   labelNames: { [key: string]: string }[]; // Array of key/string pairs.
-  lists: BoardListVM[];
-  members: BoardMemberVM[];
+  lists: IBoardList[];
+  members: IBoardList[];
   hexColor: string;
   teamId: string; //Development, Marketing, etc etc. User Defined
 
@@ -23,7 +23,7 @@ export class BoardVM extends IBaseModelVM {
     super();
 
     this.name = null;
-    this.options = new BoardOptionsVM();
+    this.options = { isPrivate: true};
     this.description = null;
     this.lists = [];
     this.members = [];

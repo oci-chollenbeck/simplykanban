@@ -8,6 +8,8 @@ export abstract class BaseCrudService<T extends IBaseModelVM> implements IBaseCr
 
   protected collection: AngularFirestoreCollection<T>;
 
+  collectionQuery: firebase.firestore.Query;
+
   constructor(path: string, protected afs: AngularFirestore) {
     this.collection = this.afs.collection(path);
   }
@@ -43,15 +45,22 @@ export abstract class BaseCrudService<T extends IBaseModelVM> implements IBaseCr
       );
   }
 
+  async query(field: string, operator: firebase.firestore.WhereFilterOp, value: string): Promise<T[]> {
+    const q = await this.collection.ref.where(field, operator, value).get();
+
+    return q.docs.map(m => {
+      return {id: m.id, ...(m.data() as any)};
+    });
+  }
+
 
   add(item: T): Promise<T> {
     const promise = new Promise<T>((resolve) => {
-      this.collection.add(item).then(ref => {
-        const newItem = {
-          id: ref.id,
-          /* workaround until spread works with generic types */
-          ...(item as any)
-        };
+      const newItem = {
+        ...(item as any)
+      };
+      this.collection.add(newItem).then(ref => {
+        newItem.id = ref.id;
         resolve(newItem);
       });
     });
@@ -60,7 +69,7 @@ export abstract class BaseCrudService<T extends IBaseModelVM> implements IBaseCr
 
 
   update(item: T): Promise<T> {
-    const entity = _.cloneDeep(item); delete entity.id;
+    const entity = { ...(item as any) }; delete entity.id;
     const promise = new Promise<T>((resolve) => {
       this.collection
         .doc<T>(item.id)

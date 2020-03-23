@@ -13,7 +13,7 @@
     "ngc:component:form": "ng g @chollenbeck/ngc:component-form",
     "ngc:component": "ng g @chollenbeck/ngc:component",
     "ngc:class": "ng g @chollenbeck/ngc:class",
-    "ngc:service": "ng g @chollenbeck/ngc-service"
+    "ngc:service": "ng g @chollenbeck/ngc:service"
   },
   "dependencies": {
     "@agm/core": "~1.0.0-beta.2",

@@ -1,12 +1,3 @@
-
-export class BoardOptionsVM {
-
+export interface IBoardOptions {
   isPrivate: boolean;
-
-
-  // Constructor
-  constructor(){
-    this.isPrivate = true;
-  }
-
 }

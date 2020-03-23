@@ -1,3 +1,4 @@
 export const BOARD_ROUTE_NAMES = {
-  //{ROUTE_NAME}
+  BOARD : ':id',
+//{ROUTE_NAME}
 };

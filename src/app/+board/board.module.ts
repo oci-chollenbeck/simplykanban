@@ -6,17 +6,21 @@ import { BOARD_ROUTE_NAMES } from './routes/board.routes.names';
 
 
 // *: Components
+import { BoardComponent } from './+board/board.component';
+import { PERMISSIONS } from '@app/+auth/models/permissions.const';
 //{COMPONENT_IMPORT}
 
 // *: Routes
 export const routes: Routes = [
+  { path: BOARD_ROUTE_NAMES.BOARD, component: BoardComponent, data: PERMISSIONS.authenticated },
   //{COMPONENT_ROUTE}
 ];
 
 
 @NgModule({
   declarations: [
-    //{COMPONENT_DECLARATION}
+    BoardComponent,
+  //{COMPONENT_DECLARATION}
   ],
   imports: [
     SharedModule,
@@ -24,7 +28,8 @@ export const routes: Routes = [
     //{MODULE_IMPORT}
   ],
   exports: [
-    //{MODULE_EXPORT}
+    BoardComponent,
+  //{MODULE_EXPORT}
   ]
 })
 export class BoardModule { }
