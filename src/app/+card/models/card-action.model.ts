@@ -1,16 +1,8 @@
-import { CARD_ACTION_TYPES } from './action-types.const';
-import { BoardMemberVM } from '@app/+board/models/board-member.model';
+import { CARD_ACTION_TYPES } from './action-types.enum';
+import { IBoardMember } from '@app/+board/models/board-member.model';
 
 export class CardActionVM {
   type: CARD_ACTION_TYPES;
-  member: BoardMemberVM;
+  member: IBoardMember;
   timestamp: string;
-
-  // Constructor
-  constructor() {
-    this.type = null;
-    this.member = null;
-    this.timestamp = null;
-  }
-
 }

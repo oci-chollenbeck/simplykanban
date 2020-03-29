@@ -1,9 +1,5 @@
 // *: DO NOT REMOVE THE //{} COMMENTS.  `
-import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-
-
-import { AUTH_ROUTE_NAMES } from './routes/auth.routes.names';
 
 // *: Components
 import { LoginComponent } from './+login/login.component';
@@ -14,17 +10,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedModule } from '@app/shared/shared.module';
 import { ResetPasswordComponent } from './+reset-password/reset-password.component';
 import { PasswordStrengthBarModule } from 'assets/libs/ng2-password-strength-bar/ng2-password-strength-bar.module';
-//{COMPONENT_IMPORT}
+import { AuthRoutingModule } from './routes/auth.routes.module';
+/*COMPONENT_IMPORT*/
 
-// *: Routes
-export const routes: Routes = [
-  { path: AUTH_ROUTE_NAMES.LOGIN, component: LoginComponent },
-  { path: AUTH_ROUTE_NAMES.LOGOUT, component: LogoutComponent },
-  { path: AUTH_ROUTE_NAMES.ACTION, component: ActionComponent },
-  { path: AUTH_ROUTE_NAMES.REGISTER, component: RegisterComponent },
-  { path: AUTH_ROUTE_NAMES.RESETPASSWORD, component: ResetPasswordComponent },
-  //{COMPONENT_ROUTE}
-];
 
 // *: Module
 @NgModule({
@@ -34,19 +22,17 @@ export const routes: Routes = [
     ActionComponent,
     RegisterComponent,
     ResetPasswordComponent
-    //{COMPONENT_DECLARATION}
+    /*COMPONENT_DECLARATION*/
   ],
   imports: [
     SharedModule,
     PasswordStrengthBarModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes),
-
+    AuthRoutingModule
   ],
   exports: [
-    RouterModule,
-    //{MODULE_EXPORT}
+    /*MODULE_EXPORT*/
   ]
 })
 export class AuthModule { }

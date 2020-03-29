@@ -1,4 +1,4 @@
-export class IBaseModelVM {
+export interface IBaseModelVM {
   id?: string;
   isActive: boolean;
 }

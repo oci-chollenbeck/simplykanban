@@ -4,7 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // **************************************************
 // Components & Services
-import { SpinnerComponent } from './spinner/spinner.component';
+import { SpinnerComponent } from './+spinner/spinner.component';
 import { ModalComponent } from './+modal/modal.component';
 import { TosComponent } from './+tos/tos.component';
 
