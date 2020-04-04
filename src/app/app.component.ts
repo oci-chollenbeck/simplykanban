@@ -69,7 +69,7 @@ export class AppComponent implements OnInit {
       const splashScreen = document.querySelector('.app-splash-screen');
       if (splashScreen) {
         splashScreen['style'].opacity = 0;
-        setTimeout(() => splashScreen && splashScreen.parentNode.removeChild(splashScreen), 300);
+        setTimeout(() => splashScreen && splashScreen.parentNode && splashScreen.parentNode.removeChild(splashScreen), 300);
       }
     }
   }

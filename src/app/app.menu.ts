@@ -1,4 +1,4 @@
-import { PERMISSIONS } from './+auth/models/permissions.const';
+import { CLAIMS } from './+auth/claims.enum';
 
 const MENU_ITEM_TYPES = {
   HEADER: 'header',
@@ -15,15 +15,20 @@ class MenuItemVM {
   activeUriSegment?: string;
   exact?: boolean;
 
-  checkPermission: (data: any) => boolean;
+  claims?: CLAIMS[];
 
 }
 
 
+
+
+/**
+ * MENU
+ */
 export const APP_MENU: MenuItemVM[] = [
   // { type: MENU_ITEM_TYPES.HEADER, text: 'NAVIGATION', restricted: false },
 
   // HOME
-  { type: MENU_ITEM_TYPES.ROUTE, text: 'Home', uri: '/', icon: 'fas fa-home', activeUriSegment: '/', checkPermission: PERMISSIONS.authenticated, exact: true },
+  { type: MENU_ITEM_TYPES.ROUTE, text: 'Home', uri: '/', icon: 'fas fa-home', activeUriSegment: '/', exact: true },
 
 ];

@@ -20,7 +20,7 @@ const routes: Routes = [
     component: Layout2Component,
     pathMatch: 'full',
     children: [
-      { path: '', loadChildren: () => import('./+dashboard/dashboard.module').then(m => m.DashboardModule) },
+      { path: '', loadChildren: () => import('./tmp/+dashboard/dashboard.module').then(m => m.DashboardModule) },
     ]
   },
   {
@@ -31,24 +31,17 @@ const routes: Routes = [
     ]
   },
   {
-    path: APP_ROUTE_NAMES.ACCOUNT,
-    component: Layout2Component,
-    children: [
-      { path: '', loadChildren: () => import('./+account/account.module').then(m => m.AccountModule) },
-    ]
-  },
-  {
     path: APP_ROUTE_NAMES.BOARD,
     component: Layout2Component,
     children: [
-      { path: '', loadChildren: () => import('./+board/board.module').then(m => m.BoardModule) },
+      { path: '', loadChildren: () => import('./tmp/+board/board.module').then(m => m.BoardModule) },
     ]
   },
   {
     path: APP_ROUTE_NAMES.CARD,
     component: Layout2Component,
     children: [
-      { path: '', loadChildren: () => import('./+card/card.module').then(m => m.CardModule) },
+      { path: '', loadChildren: () => import('./tmp/+card/card.module').then(m => m.CardModule) },
     ]
   },
   //{APP_ROUTE}

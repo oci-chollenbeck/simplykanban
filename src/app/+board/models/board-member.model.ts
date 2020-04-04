@@ -1,16 +1,4 @@
-
-export class BoardMemberVM {
-  id: string;
-  name: string;
-  photoURL: string;
+export interface IBoardMember {
+  fullName: string;
   initials: string;
-
-  // Constructor
-  constructor() {
-    this.id = null;
-    this.name = null;
-    this.photoURL = null;
-    this.initials = null;
-  }
-
 }

@@ -4,6 +4,7 @@ import { AppService } from '@app/app.service';
 import { LayoutService } from '../layout.service';
 import { APP_MENU } from '@app/app.menu';
 import { AuthService } from '@app/+auth/services/auth.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-layout-sidenav',
@@ -27,13 +28,28 @@ export class LayoutSidenavComponent implements AfterViewInit {
 
     this.menu = [];
 
-    const user = this.authService.getCurrentUser();
+    this.authService.getUserClaims().subscribe(
+      tokenResult => {
+        // User Found
+        _.each(APP_MENU, (item) => {
+          let valid = true;
 
-    APP_MENU.forEach(item => {
-      if (item.checkPermission(user)) {
-        this.menu.push(item);
+          _.each(item.claims, (c) => {
+            if (valid) {
+              valid = !!tokenResult.claims[c];
+            }
+          });
+
+          return valid;
+        });
+      },
+      () => {
+        // No user
+        this.menu = _.filter(APP_MENU, (i) => { return !i.claims; });
       }
-    });
+    );
+
+
   }
 
   ngAfterViewInit() {

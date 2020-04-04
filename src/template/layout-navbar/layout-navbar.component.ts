@@ -25,7 +25,7 @@ export class LayoutNavbarComponent {
 
     this.authService.authStatus.subscribe(
       (authState) => {
-        this.accountRoute = authState ? ['/', APP_ROUTE_NAMES.ACCOUNT] : ['/', APP_ROUTE_NAMES.AUTH, AUTH_ROUTE_NAMES.LOGIN];
+        this.accountRoute = authState ? ['/', APP_ROUTE_NAMES.AUTH, AUTH_ROUTE_NAMES.PROFILE] : ['/', APP_ROUTE_NAMES.AUTH, AUTH_ROUTE_NAMES.LOGIN];
       },
       (err) => {
         this.accountRoute = ['/', APP_ROUTE_NAMES.AUTH, AUTH_ROUTE_NAMES.LOGIN];

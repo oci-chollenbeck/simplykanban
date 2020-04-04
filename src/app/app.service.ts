@@ -6,6 +6,7 @@ import * as moment from 'moment';
 
 @Injectable()
 export class AppService {
+  // eslint-disable-next-line no-empty-function
   constructor(private titleService: Title) { }
 
   // Set page title
@@ -136,7 +137,7 @@ export class AppService {
       return {
         date,
         time
-      }
+      };
     } else {
       return { date: null, time: null };
     }

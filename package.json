@@ -9,11 +9,12 @@
     "build:prod": "ng build --prod",
     "deploy:prod": "npm run build:prod && firebase use default && firebase deploy --only hosting",
     "packages:slim": "npm uninstall marked ng2-charts masonry-layout ng2-archwizard ng2-charts ng2-colorpicker ngx-color-picker ng2-completer ng2-img-cropper plyr quill shepherd.js sortablejs sweetalert2 ngx-trend @swimlane/ngx-charts @sweetalert2/ngx-sweetalert2 hammerjs highlight.js ngx-markdown-editor ngx-swiper-wrapper ngx-image-gallery ngx-sortablejs ngx-textarea-autosize angular-calendar date-fns ng2-dragula ng-chartist chartist chart.js ngx-contextmenu",
-    "ngc:module": "ng g @chollenbeck/ngc:module",
-    "ngc:component:form": "ng g @chollenbeck/ngc:component-form",
-    "ngc:component": "ng g @chollenbeck/ngc:component",
-    "ngc:class": "ng g @chollenbeck/ngc:class",
-    "ngc:service": "ng g @chollenbeck/ngc-service"
+    "ngc:module": "ng g @chollenbeck/ngc:module -- ",
+    "ngc:component:form": "ng g @chollenbeck/ngc:component-form -- ",
+    "ngc:component": "ng g @chollenbeck/ngc:component -- ",
+    "ngc:component:export": "ng g @chollenbeck/ngc:component --export -- ",
+    "ngc:model": "ng g @chollenbeck/ngc:class --",
+    "ngc:service": "ng g @chollenbeck/ngc:service -- "
   },
   "dependencies": {
     "@agm/core": "~1.0.0-beta.2",
@@ -60,7 +61,7 @@
     "@angular/cli": "~8.3.6",
     "@angular/compiler-cli": "~8.2.8",
     "@angular/language-service": "~8.2.8",
-    "@chollenbeck/ngc": "^3.2.0",
+    "@chollenbeck/ngc": "^3.3.1",
     "@types/chartist": "~0.9.38",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",

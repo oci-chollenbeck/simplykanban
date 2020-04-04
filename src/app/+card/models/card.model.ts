@@ -1,30 +1,19 @@
-import { IBaseModelVM } from '@app/shared/models/base.model';
-import { BoardMemberVM } from '@app/+board/models/board-member.model';
-import { CardAttachmentVM } from './card-attachment.model';
-import { CardChecklistItemVM } from './card-checklist-item.model';
-import { CardActionVM } from './card-action.model';
+import { IBaseModel } from '@app/shared/models/base.model';
 
-export class CardVM extends IBaseModelVM {
+/**
+ * Quick view card without any details
+ * @author chollenbeck
+ */
+export interface ICard extends IBaseModel {
+  title: string;
+  description: string;
+  labels: string[];
+  boardId: string;
+  boardStateId: string;
+  listPosition: number;
 
-  attachments: CardAttachmentVM[];
-  checklist: CardChecklistItemVM[];
-  membersAssigned: BoardMemberVM[];
-  actions: CardActionVM[];
-  labels: string[]; // corresponds to colorids from board lables
-  listId: string;
-  position: number;
-
-  // Constructor
-  constructor(){
-    super();
-
-    this.attachments = [];
-    this.checklist = [];
-    this.membersAssigned = [];
-    this.actions = [];
-    this.labels = [];
-    this.listId = null;
-    this.position = 99;
-  }
+  // Synced Fields
+  boardName: string;
+  boardStateName: string;
 
 }

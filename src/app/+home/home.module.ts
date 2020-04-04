@@ -1,25 +1,21 @@
 import { NgModule } from '@angular/core';
+import { HomeRoutingModule } from './routes/home.routes.module';
+import { IndexComponent } from './+index/index.component';
 import { SharedModule } from '@app/shared/shared.module';
-
-import { CardRoutingModule } from './routes/card.routes.module';
-
-
-// *: Components
-/*COMPONENT_IMPORT*/
-
 
 
 @NgModule({
   declarations: [
+    IndexComponent,
     /*COMPONENT_DECLARATION*/
   ],
   imports: [
     SharedModule,
-    CardRoutingModule
+    HomeRoutingModule
     /*MODULE_IMPORT*/
   ],
   exports: [
     /*MODULE_EXPORT*/
   ]
 })
-export class CardModule { }
+export class HomeModule { }
