@@ -1,4 +1,4 @@
-export interface CardAttachmentVM {
-  name: string;
+export interface ICardAttachment {
+  fileName: string;
   url: string;
 }

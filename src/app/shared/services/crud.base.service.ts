@@ -2,9 +2,9 @@ import { IBaseCrudService } from './crud.interface'; import { AngularFirestoreCo
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
-import { IBaseModelVM } from '../models/base.model';
+import { IBaseModel } from '../models/base.model';
 
-export abstract class BaseCrudService<T extends IBaseModelVM> implements IBaseCrudService<T> {
+export abstract class BaseCrudService<T extends IBaseModel> implements IBaseCrudService<T> {
 
   protected collection: AngularFirestoreCollection<T>;
 

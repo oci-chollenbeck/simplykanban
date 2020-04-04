@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@app/shared/shared.module';
 
-import { CardRoutingModule } from './routes/card.routes.module';
+import { SettingsRoutingModule } from './routes/settings.routes.module';
 
 
 // *: Components
@@ -15,11 +15,11 @@ import { CardRoutingModule } from './routes/card.routes.module';
   ],
   imports: [
     SharedModule,
-    CardRoutingModule
+    SettingsRoutingModule
     /*MODULE_IMPORT*/
   ],
   exports: [
     /*MODULE_EXPORT*/
   ]
 })
-export class CardModule { }
+export class SettingsModule { }

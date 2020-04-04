@@ -1,7 +1,4 @@
-
-export interface IBoardMember{
-  id: string;
-  name: string;
-  photoURL: string;
+export interface IBoardMember {
+  fullName: string;
   initials: string;
 }
