@@ -5,11 +5,13 @@ import { SETTINGS_ROUTE_NAMES } from './settings.routes.names';
 
 
 // *: Components
-/*COMPONENT_IMPORT*/
+import { AppSettingsComponent } from '../+app-settings/app-settings.component';
+  /*COMPONENT_IMPORT*/
 
 // *: Routes
 export const routes: Routes = [
-/*COMPONENT_ROUTE*/
+{ path: SETTINGS_ROUTE_NAMES.APPSETTINGS, component: AppSettingsComponent },
+  /*COMPONENT_ROUTE*/
 ];
 
 

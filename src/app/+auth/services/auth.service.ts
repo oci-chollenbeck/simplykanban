@@ -49,6 +49,9 @@ export class AuthService {
   getCurrentUser() {
     return this.userDetails;
   }
+  getCurrentUser$() {
+    return this.user;
+  }
 
   logout() {
     return this.firebaseAuth.auth.signOut();
@@ -84,7 +87,7 @@ export class AuthService {
     let pass = true;
 
     _.each(claims, (claim) => {
-      if(pass){
+      if (pass) {
         pass = !!tokenResult.claims[claim];
       }
     });
@@ -92,7 +95,7 @@ export class AuthService {
     return pass;
   }
 
-  async getClaimValue(claim: string){
+  async getClaimValue(claim: string) {
     const tokenResult = await this.firebaseAuth.idTokenResult.toPromise();
 
     return tokenResult.claims[claim];

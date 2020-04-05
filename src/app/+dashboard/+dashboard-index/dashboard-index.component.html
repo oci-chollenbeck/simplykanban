@@ -1,0 +1,342 @@
+<div class="row">
+  <div class="col">
+    <h4 class="media align-items-center font-weight-bold py-3 mb-4">
+      <img *ngIf="user" [src]="(user?.photoURL || '')" alt="" class="ui-w-50 rounded-circle">
+      <div class="media-body ml-3">
+        Welcome back, {{user?.displayName}}!
+        <div class="text-muted text-tiny mt-1"><small class="font-weight-normal">Today is {{today | date: 'fullDate'}}</small></div>
+      </div>
+    </h4>
+  </div>
+</div>
+
+<div class="row">
+  <!-- Boards -->
+  <div class="col">
+
+    <!-- My Boards -->
+    <h6 class="font-weight-semibold mb-4">My Boards <i class="fas fa-plus-circle text-primary cursor-pointer" (click)="createBoard()"></i></h6>
+    <div class="row">
+      <div class="col">
+        <div class="card pb-4 mb-2">
+          <div class="row no-gutters align-items-center">
+            <div class="col-md-3 px-4 pt-4">
+              <a href="javascript:void(0)" class="text-body font-weight-semibold">Board Name</a><br>
+              <small class="text-muted">Board Team</small>
+            </div>
+            <div class="col-md-2 text-muted small px-4 pt-4">
+              <strong>In Progress</strong> <br> 5
+            </div>
+            <div class="col-md-2 text-muted small px-4 pt-4">
+              <strong>Blocked</strong> <br> 7
+            </div>
+            <div class="col-md-2 text-muted small px-4 pt-4">
+              <strong>QA/Complete</strong> <br> 10
+            </div>
+            <div class="col-md-3 px-4 pt-4">
+              <div class="d-flex flex-wrap">
+                <a href="javascript:void(0)" class="d-block mr-1 mb-1"> <img [src]="'assets/img/2-small.png'" alt=""
+                    class="ui-w-30 rounded-circle" ngbTooltip="Username">
+                </a>
+                <a href="javascript:void(0)" class="d-block mr-1 mb-1" ngbTooltip="Username"> <img
+                    [src]="'assets/img/4-small.png'" alt=""
+                    class="ui-w-30 rounded-circle">
+                </a>
+                <a href="javascript:void(0)" class="d-block mr-1 mb-1" ngbTooltip="Username">
+                  <img [src]="'assets/img/5-small.png'" alt="" class="ui-w-30 rounded-circle">
+                </a>
+              </div>
+              <!-- <div class="text-right text-muted small">60%</div>
+          <div class="progress" style="height: 6px;">
+            <div class="progress-bar" style="width: 60%;"></div>
+          </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="card pb-4 mb-2">
+          <div class="row no-gutters align-items-center">
+            <div class="col-12 col-md-5 px-4 pt-4">
+              <a href="javascript:void(0)" class="text-body font-weight-semibold">Board Name</a><br>
+              <small class="text-muted">Board description</small>
+            </div>
+            <div class="col-4 col-md-2 text-muted small px-4 pt-4">
+              <strong>Some Header</strong> <br> Some Value
+            </div>
+            <div class="col-4 col-md-2 text-muted small px-4 pt-4">
+              <strong>Some Header</strong> <br> Some Value
+            </div>
+            <div class="col-4 col-md-3 px-4 pt-4">
+              <div class="text-right text-muted small">60%</div>
+              <div class="progress" style="height: 6px;">
+                <div class="progress-bar" style="width: 60%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Boards -->
+    <hr class=" mt-0 mb-4">
+    <h6 class="font-weight-semibold mb-4">Admin Team</h6>
+    <div class="row">
+      <div class="col">
+        <div class="card pb-4 mb-2">
+          <div class="row no-gutters align-items-center">
+            <div class="col-md-3 px-4 pt-4">
+              <a href="javascript:void(0)" class="text-body font-weight-semibold">Board Name</a><br>
+              <small class="text-muted">Board Team</small>
+            </div>
+            <div class="col-md-2 text-muted small px-4 pt-4">
+              <strong>In Progress</strong> <br> 5
+            </div>
+            <div class="col-md-2 text-muted small px-4 pt-4">
+              <strong>Blocked</strong> <br> 7
+            </div>
+            <div class="col-md-2 text-muted small px-4 pt-4">
+              <strong>QA/Complete</strong> <br> 10
+            </div>
+            <div class="col-md-3 px-4 pt-4">
+              <div class="d-flex flex-wrap">
+                <a href="javascript:void(0)" class="d-block mr-1 mb-1"> <img [src]="'assets/img/2-small.png'" alt=""
+                    class="ui-w-30 rounded-circle" ngbTooltip="Username">
+                </a>
+                <a href="javascript:void(0)" class="d-block mr-1 mb-1" ngbTooltip="Username"> <img
+                    [src]="'assets/img/4-small.png'" alt=""
+                    class="ui-w-30 rounded-circle">
+                </a>
+                <a href="javascript:void(0)" class="d-block mr-1 mb-1" ngbTooltip="Username">
+                  <img [src]="'assets/img/5-small.png'" alt="" class="ui-w-30 rounded-circle">
+                </a>
+              </div>
+              <!-- <div class="text-right text-muted small">60%</div>
+          <div class="progress" style="height: 6px;">
+            <div class="progress-bar" style="width: 60%;"></div>
+          </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="card pb-4 mb-2">
+          <div class="row no-gutters align-items-center">
+            <div class="col-12 col-md-5 px-4 pt-4">
+              <a href="javascript:void(0)" class="text-body font-weight-semibold">Board Name</a><br>
+              <small class="text-muted">Board description</small>
+            </div>
+            <div class="col-4 col-md-2 text-muted small px-4 pt-4">
+              <strong>Some Header</strong> <br> Some Value
+            </div>
+            <div class="col-4 col-md-2 text-muted small px-4 pt-4">
+              <strong>Some Header</strong> <br> Some Value
+            </div>
+            <div class="col-4 col-md-3 px-4 pt-4">
+              <div class="text-right text-muted small">60%</div>
+              <div class="progress" style="height: 6px;">
+                <div class="progress-bar" style="width: 60%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Boards -->
+    <hr class=" mt-0 mb-4">
+    <h6 class="font-weight-semibold mb-4">Dev Team</h6>
+    <div class="row">
+      <div class="col">
+        <div class="card pb-4 mb-2">
+          <div class="row no-gutters align-items-center">
+            <div class="col-md-3 px-4 pt-4">
+              <a href="javascript:void(0)" class="text-body font-weight-semibold">Board Name</a><br>
+              <small class="text-muted">Board Team</small>
+            </div>
+            <div class="col-md-2 text-muted small px-4 pt-4">
+              <strong>In Progress</strong> <br> 5
+            </div>
+            <div class="col-md-2 text-muted small px-4 pt-4">
+              <strong>Blocked</strong> <br> 7
+            </div>
+            <div class="col-md-2 text-muted small px-4 pt-4">
+              <strong>QA/Complete</strong> <br> 10
+            </div>
+            <div class="col-md-3 px-4 pt-4">
+              <div class="d-flex flex-wrap">
+                <a href="javascript:void(0)" class="d-block mr-1 mb-1"> <img [src]="'assets/img/2-small.png'" alt=""
+                    class="ui-w-30 rounded-circle" ngbTooltip="Username">
+                </a>
+                <a href="javascript:void(0)" class="d-block mr-1 mb-1" ngbTooltip="Username"> <img
+                    [src]="'assets/img/4-small.png'" alt=""
+                    class="ui-w-30 rounded-circle">
+                </a>
+                <a href="javascript:void(0)" class="d-block mr-1 mb-1" ngbTooltip="Username">
+                  <img [src]="'assets/img/5-small.png'" alt="" class="ui-w-30 rounded-circle">
+                </a>
+              </div>
+              <!-- <div class="text-right text-muted small">60%</div>
+          <div class="progress" style="height: 6px;">
+            <div class="progress-bar" style="width: 60%;"></div>
+          </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="card pb-4 mb-2">
+          <div class="row no-gutters align-items-center">
+            <div class="col-12 col-md-5 px-4 pt-4">
+              <a href="javascript:void(0)" class="text-body font-weight-semibold">Board Name</a><br>
+              <small class="text-muted">Board description</small>
+            </div>
+            <div class="col-4 col-md-2 text-muted small px-4 pt-4">
+              <strong>Some Header</strong> <br> Some Value
+            </div>
+            <div class="col-4 col-md-2 text-muted small px-4 pt-4">
+              <strong>Some Header</strong> <br> Some Value
+            </div>
+            <div class="col-4 col-md-3 px-4 pt-4">
+              <div class="text-right text-muted small">60%</div>
+              <div class="progress" style="height: 6px;">
+                <div class="progress-bar" style="width: 60%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Cards and Activity -->
+  <div class="col">
+    <div class="row">
+      <div class="col">
+
+        <!-- My Cards -->
+        <h6 class="font-weight-semibold mb-4">My Cards</h6>
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="media pb-1 mb-3">
+              <img src="assets/img/avatars/6-small.png" class="d-block ui-w-40 rounded-circle" alt>
+              <div class="media-body ml-3">
+                <div class="mb-1">
+                  <strong class="font-weight-semibold">Card Name</strong> &nbsp;
+                  <small class="text-muted">58m ago</small>
+                </div>
+                <a href="javascript:void(0)" class="text-body">Card Description</a>
+              </div>
+            </div>
+            <div class="media pb-1 mb-3">
+              <img src="assets/img/avatars/4-small.png" class="d-block ui-w-40 rounded-circle" alt>
+              <div class="media-body ml-3">
+                <div class="mb-1">
+                  <strong class="font-weight-semibold">Kenneth Frazier</strong> &nbsp;
+                  <small class="text-muted">1h ago</small>
+                </div>
+                <a href="javascript:void(0)" class="text-body">Mea et legere fuisset, ius amet purto luptatum te.</a>
+              </div>
+            </div>
+            <div class="media pb-1 mb-3">
+              <img src="assets/img/avatars/5-small.png" class="d-block ui-w-40 rounded-circle" alt>
+              <div class="media-body ml-3">
+                <div class="mb-1">
+                  <strong class="font-weight-semibold">Nelle Maxwell</strong> &nbsp;
+                  <small class="text-muted">2h ago</small>
+                </div>
+                <a href="javascript:void(0)" class="text-body">Sit meis deleniti eu, pri vidit meliore docendi ut.</a>
+              </div>
+            </div>
+            <div class="media">
+              <img src="assets/img/avatars/1-small.png" class="d-block ui-w-40 rounded-circle" alt>
+              <div class="media-body ml-3">
+                <div class="mb-1">
+                  <strong class="font-weight-semibold">Mike Greene</strong> &nbsp;
+                  <small class="text-muted">1d ago</small>
+                </div>
+                <a href="javascript:void(0)" class="text-body">Lorem ipsum dolor sit amet, vis erat denique in.</a>
+              </div>
+            </div>
+          </div>
+          <a href="javascript:void(0)" class="card-footer d-block text-center text-body small font-weight-semibold">VIEW ALL</a>
+        </div>
+
+      </div>
+    </div>
+
+        <hr class=" mt-0 mb-4">
+
+
+    <!-- Activity -->
+    <div class="row">
+      <div class="col">
+
+        <!-- Feed -->
+        <h6 class="font-weight-semibold mb-4">Recent Activity</h6>
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="media pb-1 mb-3">
+              <div class="ui-feed-icon-container">
+                <span class="ui-icon ui-feed-icon ion ion-ios-thumbs-up bg-success text-white"></span>
+                <img src="assets/img/avatars/7-small.png" class="ui-w-40 rounded-circle" alt>
+              </div>
+              <div class="media-body align-self-center ml-3">
+                <a href="javascript:void(0)">Alice Hampton</a> liked
+                <a href="javascript:void(0)">Article Name</a>
+                <div class="text-muted small">2 hours ago</div>
+              </div>
+            </div>
+            <div class="media pb-1 mb-3">
+              <div class="ui-feed-icon-container">
+                <span class="ui-icon ui-feed-icon ion ion-ios-text bg-secondary text-white"></span>
+                <img src="assets/img/avatars/8-small.png" class="ui-w-40 rounded-circle" alt>
+              </div>
+              <div class="media-body align-self-center ml-3">
+                <a href="javascript:void(0)">Hallie Lewis</a> commented on
+                <a href="javascript:void(0)">Article Name</a>
+                <div class="my-1">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                  labore.
+                </div>
+                <div class="text-muted small">2 hours ago</div>
+              </div>
+            </div>
+            <div class="media pb-1 mb-3">
+              <div class="ui-feed-icon-container">
+                <span class="ui-icon ui-feed-icon ion ion-ios-thumbs-down bg-danger text-white"></span>
+                <img src="assets/img/avatars/9-small.png" class="ui-w-40 rounded-circle" alt>
+              </div>
+              <div class="media-body align-self-center ml-3">
+                <a href="javascript:void(0)">Amanda Warner</a> disliked
+                <a href="javascript:void(0)">Article Name</a>
+                <div class="text-muted small">2 hours ago</div>
+              </div>
+            </div>
+            <div class="media">
+              <div class="ui-feed-icon-container">
+                <span class="ui-icon ui-feed-icon ion ion-md-checkmark bg-primary text-white"></span>
+                <img src="assets/img/avatars/11-small.png" class="ui-w-40 rounded-circle" alt>
+              </div>
+              <div class="media-body align-self-center ml-3">
+                <a href="javascript:void(0)">Belle Ross</a> followed
+                <a href="javascript:void(0)">Nelle Maxwell</a>
+                <div class="text-muted small">2 hours ago</div>
+              </div>
+            </div>
+          </div>
+          <a href="javascript:void(0)" class="card-footer d-block text-center text-body small font-weight-semibold">VIEW ALL</a>
+        </div>
+        <!-- / Feed -->
+
+      </div>
+    </div>
+  </div>
+</div>

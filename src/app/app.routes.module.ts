@@ -20,7 +20,14 @@ const routes: Routes = [
     component: Layout2Component,
     pathMatch: 'full',
     children: [
-      { path: '', loadChildren: () => import('./tmp/+dashboard/dashboard.module').then(m => m.DashboardModule) },
+      { path: '', loadChildren: () => import('./+dashboard/dashboard.module').then(m => m.DashboardModule) },
+    ]
+  },
+  {
+    path: APP_ROUTE_NAMES.PROFILE,
+    component: Layout2Component,
+    children: [
+      { path: '', loadChildren: () => import('./+auth/profile.module').then(m => m.ProfileModule) },
     ]
   },
   {
@@ -34,17 +41,24 @@ const routes: Routes = [
     path: APP_ROUTE_NAMES.BOARD,
     component: Layout2Component,
     children: [
-      { path: '', loadChildren: () => import('./tmp/+board/board.module').then(m => m.BoardModule) },
+      { path: '', loadChildren: () => import('./+board/board.module').then(m => m.BoardModule) },
     ]
   },
   {
     path: APP_ROUTE_NAMES.CARD,
     component: Layout2Component,
     children: [
-      { path: '', loadChildren: () => import('./tmp/+card/card.module').then(m => m.CardModule) },
+      { path: '', loadChildren: () => import('./+card/card.module').then(m => m.CardModule) },
     ]
   },
-  //{APP_ROUTE}
+  {
+    path: APP_ROUTE_NAMES.SETTINGS,
+    component: Layout2Component,
+    children: [
+      { path: '', loadChildren: () => import('./+settings/settings.module').then(m => m.SettingsModule) },
+    ]
+  },
+  /*APP_ROUTE*/
 
   // 404 Not Found page
   { path: '**', component: NotFoundComponent }

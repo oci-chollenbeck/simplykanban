@@ -40,7 +40,8 @@ export class LayoutSidenavComponent implements AfterViewInit {
             }
           });
 
-          return valid;
+          if (valid)
+            this.menu.push(item);
         });
       },
       () => {
@@ -71,16 +72,16 @@ export class LayoutSidenavComponent implements AfterViewInit {
     return `${this.orientation === 'horizontal' ? 'container-p-x ' : ''} bg-${bg}`;
   }
 
-  isActive(url) {
-    return this.router.isActive(url, true);
+  isActive(url, exact) {
+    return this.router.isActive(url, exact);
   }
 
-  isMenuActive(url) {
-    return this.router.isActive(url, false);
+  isMenuActive(url, exact) {
+    return this.router.isActive(url, exact);
   }
 
-  isMenuOpen(url) {
-    return this.router.isActive(url, false) && this.orientation !== 'horizontal';
+  isMenuOpen(url, exact) {
+    return this.router.isActive(url, exact) && this.orientation !== 'horizontal';
   }
 
   toggleSidenav() {

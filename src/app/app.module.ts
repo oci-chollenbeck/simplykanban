@@ -28,6 +28,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { SharedModule } from './shared/shared.module';
 import { environment } from '@environments/environment';
 import { ToastrModule } from 'ngx-toastr';
+import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 
 // *******************************************************************************
 //
@@ -58,6 +59,7 @@ import { ToastrModule } from 'ngx-toastr';
     AngularFireStorageModule,
     AngularFireMessagingModule,
     AngularFireRemoteConfigModule,
+    AngularFireAuthGuardModule,
     AngularFireModule.initializeApp(environment.firebase)
 
   ],

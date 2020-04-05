@@ -1,7 +1,6 @@
 import { IBaseCrudService } from './crud.interface'; import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import * as _ from 'lodash';
 import { IBaseModel } from '../models/base.model';
 
 export abstract class BaseCrudService<T extends IBaseModel> implements IBaseCrudService<T> {
@@ -59,12 +58,12 @@ export abstract class BaseCrudService<T extends IBaseModel> implements IBaseCrud
   }
 
 
-  update(item: T): Promise<T> {
-    const entity = _.cloneDeep(item); delete entity.id;
+  update(id: string, item: T): Promise<T> {
+    item.id = null;
     const promise = new Promise<T>((resolve) => {
       this.collection
-        .doc<T>(item.id)
-        .set(entity)
+        .doc<T>(id)
+        .update(item)
         .then(() => {
           resolve({
             ...(item as any)

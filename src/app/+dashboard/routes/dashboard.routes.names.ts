@@ -1,0 +1,4 @@
+export const DASHBOARD_ROUTE_NAMES = {
+  DASHBOARDINDEX : '',
+/*ROUTE_NAME*/
+};

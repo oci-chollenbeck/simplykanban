@@ -1,9 +1,9 @@
 export interface IBaseModel {
   id?: string;
-  isActive: boolean;
+  isActive?: boolean;
 
-  createDate: string;
-  updateDate: string;
+  createDate?: string;
+  updateDate?: string;
 
   lastModifiedBy?: string;
 }

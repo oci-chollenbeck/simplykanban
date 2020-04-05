@@ -4,6 +4,6 @@ export const AUTH_ROUTE_NAMES = {
   ACTION: 'action',
   REGISTER: 'register',
   RESETPASSWORD : 'reset-password',
-  PROFILE: 'my-profile'
+  PROFILE: 'me'
 //{ROUTE_NAME}
 };
