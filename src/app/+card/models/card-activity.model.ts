@@ -1,4 +1,7 @@
-export interface ICardActivity {
+import { IBaseModel } from '@app/shared/models/base.model';
+
+
+export interface ICardActivity extends IBaseModel {
   cardId: string;
   content: string;
   timestamp: string;

@@ -27,9 +27,39 @@ export abstract class BaseCrudService<T extends IBaseModel> implements IBaseCrud
       );
   }
 
+  getSubcollectionDoc(identifier: string, subCollection: string, subCollectionId: string): Observable<T> {
+    return this.collection.doc(identifier).collection(subCollection)
+      .doc<T>(subCollectionId)
+      .snapshotChanges()
+      .pipe(
+        map(doc => {
+          if (doc.payload.exists) {
+            /* workaround until spread works with generic types */
+            const data = doc.payload.data() as any;
+            const id = doc.payload.id;
+            return { id, ...data };
+          }
+        })
+      );
+  }
+
 
   list(): Observable<T[]> {
     return this.collection
+      .snapshotChanges()
+      .pipe(
+        map(changes => {
+          return changes.map(a => {
+            const data = a.payload.doc.data() as T;
+            data.id = a.payload.doc.id;
+            return data;
+          });
+        })
+      );
+  }
+
+  subCollection(id: string, collection: string): Observable<T[]> {
+    return this.collection.doc(id).collection(collection)
       .snapshotChanges()
       .pipe(
         map(changes => {
