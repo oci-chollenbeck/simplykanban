@@ -5,11 +5,13 @@ import { CARD_ROUTE_NAMES } from './card.routes.names';
 
 
 // *: Components
-/*COMPONENT_IMPORT*/
+import { CardDetailsComponent } from '../+card-details/card-details.component';
+  /*COMPONENT_IMPORT*/
 
 // *: Routes
 export const routes: Routes = [
-/*COMPONENT_ROUTE*/
+{ path: CARD_ROUTE_NAMES.CARDDETAILS, component: CardDetailsComponent },
+  /*COMPONENT_ROUTE*/
 ];
 
 
