@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { APP_ROUTE_NAMES } from '@app/app.routes.names';
 import { BoardService } from '@app/+board/services/board.service';
 import { IBoard } from '@app/+board/models/board.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CardDetailsComponent } from '@app/+card/+card-details/card-details.component';
 
 @Component({
   selector: 'app-dashboard-index',
@@ -19,7 +21,7 @@ export class DashboardIndexComponent implements OnInit {
   private defaultBoard: IBoard;
 
 
-  constructor(private appService: AppService, private authService: AuthService, private toastr: ToastrService, private router: Router, private boardService: BoardService) {
+  constructor(private appService: AppService, private authService: AuthService, private toastr: ToastrService, private router: Router, private boardService: BoardService, private modalService: NgbModal) {
     this.appService.pageTitle = 'Dashboard';
 
     this.today = Date.now();
@@ -28,7 +30,7 @@ export class DashboardIndexComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getCurrentUser$().subscribe(
       user => {
-        if(user){
+        if (user) {
           this.user = user;
           let initials = '';
 
@@ -42,6 +44,9 @@ export class DashboardIndexComponent implements OnInit {
     );
   }
 
+  cardDetails() {
+    this.modalService.open(CardDetailsComponent);
+  }
 
   createBoard() {
     this.boardService.add(this.defaultBoard).then(
