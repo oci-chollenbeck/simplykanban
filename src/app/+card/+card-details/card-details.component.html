@@ -1,7 +1,7 @@
 <h4 class="">
   <ol class="breadcrumb font-weight-bold m-0">
     <li class="breadcrumb-item"><a href="javascript:void(0)">Board Name</a></li>
-    <li class="breadcrumb-item active">{{projectData.title}}</li>
+    <li class="breadcrumb-item active">{{card.title}}</li>
   </ol>
 </h4>
 <!-- Header -->
@@ -10,20 +10,20 @@
     <div class="col-md-9">
       <div class="media-body container-p-x py-2">
         <div class="d-flex justify-content-between align-items-center mb-1">
-          <div><strong class="text-primary text-large">{{completedPercent(projectData.tasks,
-              projectData.completedTasks)}}%</strong> completed</div>
-          <!-- <div class="text-muted small">{{projectData.tasks - projectData.completedTasks}} opened tasks, {{projectData.completedTasks}} tasks completed</div> -->
+          <div><strong class="text-primary text-large">{{completedPercent()}}%</strong> completed</div>
+          <!-- <div class="text-muted small">{{card.tasks - card.completedTasks}} opened tasks, {{card.completedTasks}} tasks completed</div> -->
           <div class="d-flex flex-wrap">
-            <div *ngFor="let tag of projectData.tags" class="badge badge-default mt-1 mr-1">{{tag}}</div>
+            <div *ngFor="let tag of card.labels" class="badge badge-{{tag.colorId}} mt-1 mr-1">{{tag.title}}</div>
           </div>
+
         </div>
-        <ngb-progressbar [value]="completedPercent(projectData.tasks, projectData.completedTasks)" height="4px"></ngb-progressbar>
+        <ngb-progressbar [value]="completedPercent()" height="4px"></ngb-progressbar>
       </div>
     </div>
     <div class="col-md-3">
       <div class="container-p-x py-2">
         <div class="text-muted small">Status</div>
-        <strong class="text-big" [ngClass]="'text-' + statuses[projectData.status].color">{{statuses[projectData.status].title}}</strong>
+        <strong class="text-big text-muted">{{card.boardStateName}}</strong>
       </div>
     </div>
   </div>
@@ -36,7 +36,11 @@
     <!-- Description -->
     <div class="card mb-4">
       <h6 class="card-header">Description</h6>
-      <div class="card-body" [innerHTML]="projectData.description"></div>
+      <div class="card-body">
+        <p>
+          {{card.descrption}}
+        </p>
+      </div>
     </div>
     <!-- / Description -->
 
@@ -45,24 +49,16 @@
       <h6 class="card-header">Tasks <button type="button" class="btn btn-primary float-right btn-sm"><i class="fas
             fa-plus"></i>&nbsp; Add task</button>&nbsp;
       </h6>
-      <div *ngFor="let section of projectData.taskSections; let i= index">
+      <div>
         <div class="card-body">
-          <p class="text-muted small">{{section.title}}</p>
-
-          <div [sortablejs]="section.tasks" [sortablejsOptions]="sortablejsOptions" class="project-task-list
+          <div [sortablejs]="cardTodo" [sortablejsOptions]="sortablejsOptions" class="project-task-list
             custom-controls-stacked">
-            <div *ngFor="let task of section.tasks" class="project-task-item d-flex" style="justify-content:
+            <div *ngFor="let task of cardTodo" class="project-task-item d-flex" style="justify-content:
               space-between;">
 
               <label class="ui-todo-item custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" [(ngModel)]="task.completed">
+                <input type="checkbox" class="custom-control-input" [(ngModel)]="task.isComplete">
                 <span class="custom-control-label">{{task.text}}</span>
-                <span *ngIf="task.tags && task.tags.length">
-                  <span *ngFor="let tag of task.tags" [ngClass]="'badge-' + taskTags[tag].color" class="badge
-                    font-weight-normal ml-2">{{taskTags[tag].title}}</span>
-                </span>
-                <span *ngIf="task.left" class="ui-todo-badge badge badge-outline-default font-weight-normal ml-2">{{task.left}}
-                  left</span>
               </label>
 
               <div class="d-flex align-items-center">
@@ -72,7 +68,6 @@
                   <button type="button" class="btn btn-default btn-xs rounded-pill icon-btn borderless md-btn-flat
                     hide-arrow" ngbDropdownToggle><i class="fas fa-ellipsis-v"></i></button>
                   <div ngbDropdownMenu [class.dropdown-menu-right]="!isRTL">
-                    <a class="dropdown-item" href="javascript:void(0)">Edit</a>
                     <a class="dropdown-item" href="javascript:void(0)">Remove</a>
                   </div>
                 </div>
@@ -82,34 +77,33 @@
           </div>
 
         </div>
-        <hr class="m-0" *ngIf="i !== (projectData.taskSections.length - 1)">
       </div>
     </div>
     <!-- / Tasks -->
 
-    <!-- Description -->
+    <!-- Activity -->
     <div class="card mb-4">
-      <h6 class="card-header">Activity <button class="float-right btn btn-default btn-sm">Hide Activity</button></h6>
+      <h6 class="card-header">Activity <button class="float-right btn btn-default btn-sm">Comments Only</button></h6>
       <div class="card-body">
 
-        <div *ngFor="let activity of projectData.activities" class="media pb-1 mb-3">
+        <div *ngFor="let activity of cardActivity" class="media pb-1 mb-3">
           <div class="ui-feed-icon-container">
-            <span *ngIf="activity.type === 'new_task'" class="ui-icon ui-feed-icon fas fa-plus bg-primary
+            <span *ngIf="activity.type === 0" class="ui-icon ui-feed-icon fas fa-plus bg-primary
               text-white"></span>
-            <span *ngIf="activity.type === 'pushed_commit'" class="ui-icon ui-feed-icon fas fa-code bg-warning
+            <span *ngIf="activity.type === 1" class="ui-icon ui-feed-icon fas fa-edit bg-warning
               text-body"></span>
-            <span *ngIf="activity.type === 'completed_task'" class="ui-icon ui-feed-icon fas fa-check-square
-              bg-success text-white"></span>
-            <span *ngIf="activity.type === 'new_participant'" class="ui-icon ui-feed-icon far fa-user bg-info
+            <span *ngIf="activity.type === 3" class="ui-icon ui-feed-icon fas fa-paperclip bg-success text-white"></span>
+            <span *ngIf="activity.type === 4" class="ui-icon ui-feed-icon far fa-user bg-info
               text-white"></span>
-            <span *ngIf="activity.type === 'message'" class="ui-icon ui-feed-icon far fa-comment bg-info
+            <span *ngIf="activity.type === 2" class="ui-icon ui-feed-icon far fa-comment bg-info
               text-white"></span>
 
-            <img [src]="'assets/img/' + activity.user.avatar" class="ui-w-40 rounded-circle" alt>
+            <span class="ui-w-40 rounded-circle">{{activity.memberInitials}}</span>
           </div>
           <div class="media-body align-self-center ml-3">
-            <div *ngIf="activity.type === 'new_task'"><a href="javascript:void(0)">{{activity.user.name}}</a> added
-              new task <strong>{{activity.data.taskTitle}}</strong></div>
+            <div>
+              <a href="javascript:void(0)">{{activity.memberName}}</a>
+              {{activity.text}}</div>
             <div *ngIf="activity.type === 'pushed_commit'"><a href="javascript:void(0)">{{activity.user.name}}</a>
               pushed commit <strong>#{{activity.data.commitId}}</strong></div>
             <div *ngIf="activity.type === 'completed_task'"><a href="javascript:void(0)">{{activity.user.name}}</a>
@@ -124,7 +118,7 @@
 
       </div>
     </div>
-    <!-- / Description -->
+    <!-- / Activity -->
 
   </div>
   <div class="col-md-4 col-xl-3">
@@ -139,7 +133,7 @@
         </div>
       </h6>
       <ul class="list-group list-group-flush">
-        <div *ngFor="let leader of projectData.leaders" class="list-group-item">
+        <div *ngFor="let leader of card.leaders" class="list-group-item">
           <div class="media align-items-center">
             <img [src]="'assets/img/' + leader.avatar" class="d-block ui-w-30 rounded-circle" alt="">
             <div class="media-body px-2">
@@ -159,56 +153,56 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <div class="text-muted">Contact</div>
-          <div><a href="javascript:void(0)">{{projectData.client.name}}</a></div>
+          <div><a href="javascript:void(0)">{{card.client.name}}</a></div>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <div class="text-muted">Created at</div>
-          <div>{{projectData.created}}</div>
+          <div>{{card.created}}</div>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <div class="text-muted">Last update</div>
-          <div>{{projectData.lastUpdate}}</div>
+          <div>{{card.lastUpdate}}</div>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <div class="text-muted">Deadline</div>
-          <div><strong>{{projectData.deadline}}</strong></div>
+          <div><strong>{{card.deadline}}</strong></div>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <div class="text-muted">Priority</div>
           <div class="btn-group" ngbDropdown [placement]="!isRTL ? 'bottom-right' : 'bottom-left'">
             <button type="button" class="btn btn-xs md-btn-flat"
-              [ngClass]="priorityDropdownVariant(projectData.priority)" ngbDropdownToggle>
-              <span *ngIf="projectData.priority === 1">High</span>
-              <span *ngIf="projectData.priority === 2">Medium</span>
-              <span *ngIf="projectData.priority === 3">Low</span>
+              [ngClass]="priorityDropdownVariant(card.priority)" ngbDropdownToggle>
+              <span *ngIf="card.priority === 1">High</span>
+              <span *ngIf="card.priority === 2">Medium</span>
+              <span *ngIf="card.priority === 3">Low</span>
             </button>
             <div ngbDropdownMenu [class.dropdown-menu-right]="!isRTL">
-              <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{active: projectData.priority === 1}">High</a>
-              <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{active: projectData.priority === 2}">Medium</a>
-              <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{active: projectData.priority === 3}">Low</a>
+              <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{active: card.priority === 1}">High</a>
+              <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{active: card.priority === 2}">Medium</a>
+              <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{active: card.priority === 3}">Low</a>
             </div>
           </div>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <div class="text-muted">Estimated Hours</div>
-          <div>{{projectData.hours}}</div>
+          <div>{{card.hours}}</div>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <div class="text-muted">Total hours</div>
-          <div>{{projectData.hours + 10}}</div>
+          <div>{{card.hours + 10}}</div>
         </li>
       </ul>
     </div>
     <!-- / Project details -->
 
     <!-- Attached files -->
-    <div *ngIf="projectData.attachments && projectData.attachments.length" class="card mb-4">
+    <div *ngIf="card.attachments && card.attachments.length" class="card mb-4">
       <h6 class="card-header">Attached files <button type="button" class="btn btn-primary float-right btn-sm"><i
             class="fas
             fa-plus"></i>&nbsp; Add file</button></h6>
       <div class="card-body p-3">
         <div class="row no-gutters">
-          <div *ngFor="let attachment of projectData.attachments" class="col-md-6 p-1">
+          <div *ngFor="let attachment of card.attachments" class="col-md-6 p-1">
 
             <div class="project-attachment ui-bordered p-2">
               <!-- <div *ngIf="isImage(attachment)" [style.backgroundImage]="'url(\'' + attachment.path + '\')'" class="project-attachment-img"></div>

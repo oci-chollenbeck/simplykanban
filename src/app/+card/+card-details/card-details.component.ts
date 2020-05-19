@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { AppService } from '@app/app.service';
 import { ToastrService } from 'ngx-toastr';
+import { ICard } from '../models/card.model';
+import { ICardAttachment } from '../models/card-attachment.model';
+import { ICardTodo } from '../models/card-todo.model';
+import { ICardActivity, ActionType } from '../models/card-activity.model';
+import * as _ from 'lodash';
+import { IBoardLabel } from '@app/+board/models/board-label.enum';
 
 @Component({
   selector: 'app-card-details',
@@ -10,10 +16,10 @@ import { ToastrService } from 'ngx-toastr';
 export class CardDetailsComponent {
 
   loading: boolean;
+  completedCount: number;
 
   constructor(private appService: AppService, private toastr: ToastrService) {
     this.appService.pageTitle = 'Card Details';
-
   }
 
   statuses = {
@@ -21,148 +27,90 @@ export class CardDetailsComponent {
     2: { title: 'Pending', color: 'warning' }
   };
 
-  // Tags
-  taskTags = {
-    clients: { title: 'Clients', color: 'success' },
-    important: { title: 'Important', color: 'danger' },
-    social: { title: 'Social', color: 'info' },
-    other: { title: 'Other', color: 'warning' }
-  };
+  cardAttachments: ICardAttachment[] =
+    [
+      { fileName: 'image_1.jpg', url: 'assets/img/bg/5.jpg' },
+      { fileName: 'image_2.jpg', url: 'assets/img/bg/6.jpg' },
+      { fileName: 'assignment_letter.pdf', url: '/path/to/assignment_letter.pdf' },
+      { fileName: 'app_update.zip', url: '/path/to/app_update.zip' }
+    ];
 
-  projectData = {
+  cardTodo: ICardTodo[] = [
+    { text: 'Update User profile page', isComplete: false },
+    { text: 'Add images to the product gallery', isComplete: false },
+    { text: 'Create invoice template', isComplete: false }
+  ];
+
+  cardActivity: ICardActivity[] = [
+    {
+      cardId: '1',
+      type: ActionType.COMMENT,
+      timestamp: '2020-02-02T10:10:00',
+      memberName: 'John Doe',
+      memberInitials: 'JD'
+    }, {
+      cardId: '1',
+      type: ActionType.CREATED,
+      timestamp: '2020-02-02T11:10:00',
+      memberName: 'John Doe',
+      memberInitials: 'JD'
+    }, {
+      cardId: '1',
+      type: ActionType.UPDATED,
+      timestamp: '2020-02-02',
+      memberName: 'John Doe',
+      memberInitials: 'JD'
+    }, {
+      cardId: '1',
+      type: ActionType.ATTACHMENT_ADDED,
+      text: 'filename.png',
+      timestamp: '2020-02-02',
+      memberName: 'John Doe',
+      memberInitials: 'JD'
+    }, {
+      cardId: '1',
+      type: ActionType.MEMBER_ADDED,
+      text: 'Jane Doe',
+      timestamp: '2020-02-02',
+      memberName: 'John Doe',
+      memberInitials: 'JD'
+    }
+  ];
+
+  card: ICard = {
+    boardId: '1',
+    boardName: 'New Board',
+    boardStateId: '1',
+    listPosition: 0,
+    boardStateName: 'In Progress',
     title: 'New Card',
-    status: 1,
-    priority: 1,
-    tasks: 44,
-    completedTasks: 29,
-
     description: `
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque magna augue, euismod at tortor et, laoreet maximus risus. Ut neque felis, luctus ut rhoncus id, elementum vitae lorem. Ut ac turpis sit amet lorem volutpat tincidunt. Vestibulum dui sapien, porttitor eget pellentesque id, ultrices id ipsum. Nam augue mi, maximus ut tortor et, fermentum efficitur diam. Suspendisse eget urna lorem. Fusce ligula augue, malesuada ullamcorper est nec, commodo laoreet tellus.</p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque magna augue, euismod at tortor et, laoreet maximus risus. Ut neque felis, luctus ut rhoncus id, elementum vitae lorem. Ut ac turpis sit amet lorem volutpat tincidunt. Vestibulum dui sapien, porttitor eget pellentesque id, ultrices id ipsum. Nam augue mi, maximus ut tortor et, fermentum efficitur diam. Suspendisse eget urna lorem. Fusce ligula augue, malesuada ullamcorper est nec, commodo laoreet tellus.
     `,
 
-    created: '02/01/2018',
-    lastUpdate: '02/18/2018',
+    createDate: '02/01/2018',
+    updateDate: '02/18/2018',
     deadline: '03/12/2018',
 
-    hourRate: 35,
-    hours: 74,
+    hoursEstimate: 74,
+    hoursActual: 44,
 
-    tags: ['Development', 'Frontend', 'Backend', 'Design'],
-
-    createdBy: {
-      name: 'Mae Gibson'
-    },
-
-    client: {
-      name: 'Company Ltd.'
-    },
-
-    leaders: [
-      { avatar: '2-small.png', name: 'Mike Greene' }
-    ],
-
-    team: [
-      { avatar: '2-small.png', name: 'Leon Wilson' },
-      { avatar: '2-small.png', name: 'Allie Rodriguez' },
-      { avatar: '2-small.png', name: 'Kenneth Frazier' },
-      { avatar: '2-small.png', name: 'Nellie Maxwell' }
-    ],
-
-    attachments: [
-      { name: 'image_1.jpg', size: '527KB', path: 'assets/img/bg/5.jpg' },
-      { name: 'image_2.jpg', size: '269KB', path: 'assets/img/bg/6.jpg' },
-      { name: 'assignment_letter.pdf', size: '156KB', path: '/path/to/assignment_letter.pdf' },
-      { name: 'app_update.zip', size: '1.35MB', path: '/path/to/app_update.zip' }
-    ],
-
-    taskSections: [{
-      title: 'To Do',
-      tasks: [
-        { text: 'Update User profile page', tags: ['other'], completed: false },
-        { text: 'Add images to the product gallery', completed: false },
-        { text: 'Create invoice template', completed: false }
-      ]
-    }],
-
-    discussion: [{
-      text: 'Pellentesque faucibus, nisl vel luctus porttitor, leo felis pellentesque augue, dignissim tempus risus odio sed lorem. Nunc nec malesuada nunc, ut mollis dui.',
-      date: '2:33 am',
-      user: { avatar: '2-small.png', name: 'Mike Greene' }
-    }, {
-      text: 'Quisque sodales, tortor et elementum dapibus, nisl urna hendrerit metus, a rhoncus magna sem in libero.',
-      date: '2:34 am',
-      user: { avatar: '2-small.png', name: 'Nelle Maxwell' }
-    }, {
-      text: 'Cum ea graeci tractatos.',
-      date: '2:38 am',
-      user: { avatar: '2-small.png', name: 'Mike Greene' }
-    }, {
-      text: 'Cras ultrices, dui id vulputate laoreet, diam orci semper ipsum, a aliquet nunc quam vitae turpis. Donec cursus tortor nec turpis semper, ac luctus mauris sagittis.',
-      date: '2:38 am',
-      user: { avatar: '2-small.png', name: 'Leon Wilson' }
-    }, {
-      text: 'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
-      date: '2:38 am',
-      user: { avatar: '2-small.png', name: 'Allie Rodriguez' }
-    }, {
-      text: 'Aliquam ornare nisl semper nisl porttitor commodo vel vel libero.',
-      date: '2:38 am',
-      user: { avatar: '2-small.png', name: 'Kenneth Frazier' }
-    }],
-
-    activities: [
+    labels: [
       {
-        type: 'message',
-        data: {text: 'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.'},
-        date: '2 hours',
-        user: { avatar: '2-small.png', name: 'Allie Rodriguez' }
+        colorId: IBoardLabel.BLACK,
+        title: 'Sprint 2'
       }, {
-        type: 'message',
-        data: {text: 'Aliquam ornare nisl semper nisl porttitor commodo vel vel libero.'},
-        date: '2 hours',
-        user: { avatar: '2-small.png', name: 'Kenneth Frazier' }
+        colorId: IBoardLabel.YELLOW,
+        title: 'Needs Info'
+      }, {
+        colorId: IBoardLabel.GREEN,
+        title: 'Dev'
       },
-      {
-        type: 'new_task',
-        date: '2 hours',
-        user: { avatar: '2-small.png', name: 'Mike Greene' },
-        data: { taskTitle: 'Create invoice template' }
-      }, {
-        type: 'pushed_commit',
-        date: '2 hours',
-        user: { avatar: '2-small.png', name: 'Leon Wilson' },
-        data: { commitId: 950458 }
-      }, {
-        type: 'pushed_commit',
-        date: '2 hours',
-        user: { avatar: '2-small.png', name: 'Allie Rodriguez' },
-        data: { commitId: 950457 }
-      }, {
-        type: 'pushed_commit',
-        date: '2 hours',
-        user: { avatar: '2-small.png', name: 'Nellie Maxwell' },
-        data: { commitId: 950456 }
-      }, {
-        type: 'completed_task',
-        date: '2 hours',
-        user: { avatar: '2-small.png', name: 'Kenneth Frazier' },
-        data: { taskTitle: 'Google AdWords campain graphics' }
-      }, {
-        type: 'pushed_commit',
-        date: '2 hours',
-        user: { avatar: '2-small.png', name: 'Kenneth Frazier' },
-        data: { commitId: 950455 }
-      }, {
-        type: 'new_task',
-        date: '2 hours',
-        user: { avatar: '2-small.png', name: 'Nellie Maxwell' },
-        data: { taskTitle: 'Edit the draft for the icons' }
-      }, {
-        type: 'new_participant',
-        date: '2 hours',
-        user: { avatar: '2-small.png', name: 'Mike Greene' },
-        data: { userName: 'Nellie Maxwell' }
-      }]
+    ],
+
+    members: [
+      { id: 'xyz', fullName: 'John Doe', initials: 'JD' }
+    ]
   };
 
   sortablejsOptions: object = {
@@ -175,8 +123,9 @@ export class CardDetailsComponent {
     }
   };
 
-  completedPercent(tasks, completed) {
-    return Math.round((completed / tasks) * 100);
+  completedPercent() {
+    this.completedCount = _.filter(this.cardTodo, { isComplete: true }).length;
+    return Math.round((this.completedCount / this.cardTodo.length) * 100);
   }
 
   isImage(file) {

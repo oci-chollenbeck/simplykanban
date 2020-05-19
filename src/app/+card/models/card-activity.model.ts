@@ -3,20 +3,18 @@ import { IBaseModel } from '@app/shared/models/base.model';
 
 export interface ICardActivity extends IBaseModel {
   cardId: string;
-  content: string;
   timestamp: string;
-  ownerId: string;
+  memberName: string;
+  memberInitials: string;
   type: ActionType;
+
+  text?: string;
 }
 
 export enum ActionType {
-  COMMENT,
   CREATED,
   UPDATED,
-  LABEL_ADDED,
-  LABEL_REMOVED,
+  COMMENT,
   ATTACHMENT_ADDED,
-  ATTACHMENT_REMOVED,
-  MEMBER_ADDED,
-  MEMBER_REMOVED
+  MEMBER_ADDED
 }

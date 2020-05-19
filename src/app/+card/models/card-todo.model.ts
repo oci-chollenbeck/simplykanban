@@ -1,4 +1,4 @@
 export interface ICardTodo {
-  title: string;
-  isChecked: boolean;
+  text: string;
+  isComplete: boolean;
 }

@@ -38,7 +38,7 @@ export class DashboardIndexComponent implements OnInit {
             initials += val.substr(0, 1).toUpperCase();
           });
 
-          this.defaultBoard = { name: 'New Board', labelNames: {}, boardStates: [], memberIds: [this.user.uid], teamName: null, backgroundColor: '#ebebeb', members: [{ fullName: this.user.displayName, initials: initials }] };
+          this.defaultBoard = { name: 'New Board', labelNames: {}, boardStates: [], memberIds: [this.user.uid], teamName: null, backgroundColor: '#ebebeb', members: [{id: this.user.uid, fullName: this.user.displayName, initials: initials }] };
         }
       }
     );
